@@ -1,4 +1,5 @@
 package com.example.edward.coderswag.Adapters
+
 /*
  * Created by Edward on 5/12/2018.
  */
@@ -9,12 +10,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.ImageView
+import android.widget.TextView
 import com.example.edward.coderswag.Model.Category
 import com.example.edward.coderswag.R
 import kotlinx.android.synthetic.main.item_in_listcell.view.*
 
 
-class CategoryAdapter(val context: Context, val categories: List<Category>) : BaseAdapter(){
+class CategoryAdapter(val context: Context, val categories: List<Category>) : BaseAdapter() {
 
     /**
      * @position: the number that corresponds to the specific row that is being displayed.
@@ -23,13 +26,32 @@ class CategoryAdapter(val context: Context, val categories: List<Category>) : Ba
      * @return: view with the item properties filling in
      */
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val categoryView = LayoutInflater.from(context).inflate(R.layout.item_in_listcell, null)
+        val viewHolder: ViewHolder
+        val categoryView: View
+
+        if (convertView == null) {  // this is very first the view is presenting.
+            categoryView = LayoutInflater.from(context).inflate(R.layout.item_in_listcell, null)
+            viewHolder = ViewHolder()
+            viewHolder.categoryImage = categoryView.imageViewCategory
+            viewHolder.categoryName = categoryView.textViewCategory
+            println("viewHolder: I exist for the first time!")
+            categoryView.tag = viewHolder
+        } else {  // convertView is recycled view, can be re-used.
+            viewHolder = convertView.tag as ViewHolder
+            categoryView = convertView
+            println("viewHolder: Go green, recycle!")
+        }
+
         val category = categories[position]
-        categoryView.textViewCategory.text = category.title
+
         //This is the way to get resource id by resource name, and set view image.
         val resourceId = context.resources.getIdentifier(category.image,
-                                                    "drawable", context.packageName)
-        categoryView.imageViewCategory.setImageResource(resourceId)
+                "drawable", context.packageName)
+//        categoryView.imageViewCategory.setImageResource(resourceId)
+//        categoryView.textViewCategory.text = category.title
+
+        viewHolder.categoryImage?.setImageResource(resourceId)
+        viewHolder.categoryName?.text = category.title
 
         return categoryView
     }
@@ -59,4 +81,7 @@ class CategoryAdapter(val context: Context, val categories: List<Category>) : Ba
 //        return categories.count()
         return categories.size
     }
+
+    private class ViewHolder(var categoryImage: ImageView? = null,
+                             var categoryName: TextView? = null)
 }
