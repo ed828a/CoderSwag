@@ -27,18 +27,12 @@ class CategoryAdapter(val context: Context, val categories: List<Category>) : Ba
      * @return: view with the item properties filling in
      */
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-//        val viewHolder: ViewHolder
         val categoryView: View
 
         if (convertView == null) {  // this is very first the view is presenting.
             categoryView = LayoutInflater.from(context).inflate(R.layout.item_in_listcell, null)
-//            viewHolder = ViewHolder()
-//            viewHolder.categoryImage = categoryView.imageViewCategory
-//            viewHolder.categoryName = categoryView.textViewCategory
             Log.d("viewHolder", "I exist for the first time!")
-//            categoryView.tag = viewHolder
         } else {  // convertView is recycled view, can be re-used.
-//            viewHolder = convertView.tag as ViewHolder
             categoryView = convertView
             Log.d("viewHolder", "Go green, recycle!")
         }
@@ -50,9 +44,6 @@ class CategoryAdapter(val context: Context, val categories: List<Category>) : Ba
                 "drawable", context.packageName)
         categoryView.imageViewCategory.setImageResource(resourceId)
         categoryView.textViewCategory.text = category.title
-
-//        viewHolder.categoryImage?.setImageResource(resourceId)
-//        viewHolder.categoryName?.text = category.title
 
         return categoryView
     }
@@ -82,6 +73,4 @@ class CategoryAdapter(val context: Context, val categories: List<Category>) : Ba
         return categories.size
     }
 
-//    private class ViewHolder(var categoryImage: ImageView? = null,
-//                             var categoryName: TextView? = null)
 }
