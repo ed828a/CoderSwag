@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">CoderSwag</string>
+    <string name="back_ground">back ground</string>
+    <string name="categories">Categories</string>
+    <array name="Entry_Categories">
+        <item>SHIRTS</item>
+        <item>HOODIES</item>
+        <item>HATS</item>
+        <item>DIGITAL</item>
+    </array>
 </resources>
