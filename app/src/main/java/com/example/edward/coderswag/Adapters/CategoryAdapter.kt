@@ -6,6 +6,7 @@ package com.example.edward.coderswag.Adapters
 
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,20 +27,20 @@ class CategoryAdapter(val context: Context, val categories: List<Category>) : Ba
      * @return: view with the item properties filling in
      */
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val viewHolder: ViewHolder
+//        val viewHolder: ViewHolder
         val categoryView: View
 
         if (convertView == null) {  // this is very first the view is presenting.
             categoryView = LayoutInflater.from(context).inflate(R.layout.item_in_listcell, null)
-            viewHolder = ViewHolder()
-            viewHolder.categoryImage = categoryView.imageViewCategory
-            viewHolder.categoryName = categoryView.textViewCategory
-            println("viewHolder: I exist for the first time!")
-            categoryView.tag = viewHolder
+//            viewHolder = ViewHolder()
+//            viewHolder.categoryImage = categoryView.imageViewCategory
+//            viewHolder.categoryName = categoryView.textViewCategory
+            Log.d("viewHolder", "I exist for the first time!")
+//            categoryView.tag = viewHolder
         } else {  // convertView is recycled view, can be re-used.
-            viewHolder = convertView.tag as ViewHolder
+//            viewHolder = convertView.tag as ViewHolder
             categoryView = convertView
-            println("viewHolder: Go green, recycle!")
+            Log.d("viewHolder", "Go green, recycle!")
         }
 
         val category = categories[position]
@@ -47,11 +48,11 @@ class CategoryAdapter(val context: Context, val categories: List<Category>) : Ba
         //This is the way to get resource id by resource name, and set view image.
         val resourceId = context.resources.getIdentifier(category.image,
                 "drawable", context.packageName)
-//        categoryView.imageViewCategory.setImageResource(resourceId)
-//        categoryView.textViewCategory.text = category.title
+        categoryView.imageViewCategory.setImageResource(resourceId)
+        categoryView.textViewCategory.text = category.title
 
-        viewHolder.categoryImage?.setImageResource(resourceId)
-        viewHolder.categoryName?.text = category.title
+//        viewHolder.categoryImage?.setImageResource(resourceId)
+//        viewHolder.categoryName?.text = category.title
 
         return categoryView
     }
@@ -77,11 +78,10 @@ class CategoryAdapter(val context: Context, val categories: List<Category>) : Ba
      *  this function will tell how many rows that it is going to be displaying.
      */
     override fun getCount(): Int {
-        println("categories.count() = ${categories.count()} -- categories.size = ${categories.size}")
-//        return categories.count()
+
         return categories.size
     }
 
-    private class ViewHolder(var categoryImage: ImageView? = null,
-                             var categoryName: TextView? = null)
+//    private class ViewHolder(var categoryImage: ImageView? = null,
+//                             var categoryName: TextView? = null)
 }
