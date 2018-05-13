@@ -3,19 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="166dp">
 
     <ImageView
         android:id="@+id/imageViewCategory"
         android:layout_width="0dp"
         android:layout_height="150dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
+        android:contentDescription="@string/back_ground"
         android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/hatimage"
-        android:contentDescription="@string/back_ground" />
+        tools:srcCompat="@drawable/hatimage" />
 
     <TextView
         android:id="@+id/textViewCategory"
