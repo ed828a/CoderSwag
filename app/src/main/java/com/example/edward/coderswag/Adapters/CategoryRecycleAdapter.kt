@@ -15,15 +15,23 @@ import kotlinx.android.synthetic.main.item_in_listcell.view.*
  * Created by Edward on 5/13/2018.
  */
 
-class CategoryRecycleAdapter(val context: Context, val categories: List<Category>): Adapter<CategoryRecycleAdapter.Holder>() {
+class CategoryRecycleAdapter(val context: Context,
+                             val categories: List<Category>,
+                             val itemClick: (Category) -> Unit): Adapter<CategoryRecycleAdapter.Holder>() {
 
-    inner class Holder(itemView: View): RecyclerView.ViewHolder(itemView){
+    inner class Holder(itemView: View, val itemClick: (Category) -> Unit): RecyclerView.ViewHolder(itemView){
         val categoryImage = itemView.imageViewCategory
         val categoryName = itemView.textViewCategory
+
+        fun setOnItemClickListener(category: Category){
+            itemView.setOnClickListener { itemClick(category) }
+        }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-            Holder(LayoutInflater.from(context).inflate(R.layout.item_in_listcell, parent, false))
+            Holder(LayoutInflater.from(context).inflate(R.layout.item_in_listcell, parent, false),
+                    itemClick)
 
 
     override fun getItemCount(): Int = categories.size
@@ -39,6 +47,7 @@ class CategoryRecycleAdapter(val context: Context, val categories: List<Category
                                                     "drawable", context.packageName)
         holder.categoryImage.setImageResource(resourceId)
         holder.categoryName.text = category.title
+        holder.setOnItemClickListener(category)
     }
 
 }
