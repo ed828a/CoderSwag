@@ -1,7 +1,6 @@
 package com.example.edward.coderswag.Adapters
 
 import android.content.Context
-import android.support.v7.view.menu.ActionMenuItemView
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.Adapter
 import android.view.LayoutInflater
