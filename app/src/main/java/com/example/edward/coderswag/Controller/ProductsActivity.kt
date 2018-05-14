@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_products.*
 
 class ProductsActivity : AppCompatActivity() {
 
-    lateinit var adapter: ProductsAdapter   // sometimes, we need this adapter outside onCreate()
+//    lateinit var adapter: ProductsAdapter   // sometimes, we need this adapter outside onCreate()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,29 +26,33 @@ class ProductsActivity : AppCompatActivity() {
         val products = intent.getStringExtra(EXTRA_CATEGORY)
 
 
-//        recyclerViewProducts.adapter = ProductRecycleAdapter(this, DataService.getProducts(products) ){product ->
-//            Toast.makeText(this, "you clicked ${product.title} : ${product.price}", Toast.LENGTH_SHORT).show()
-//        }
-        adapter = ProductsAdapter(this, DataService.getProducts(products)){ product ->
+        val adapter = ProductRecycleAdapter(this, DataService.getProducts(products)) { product ->
             val intent = Intent(this, ProductDetailActivity::class.java)
             intent.putExtra(EXTRA_PRODUCT, product)
             startActivity(intent)
-
+//            Toast.makeText(this, "you clicked ${product.title}", Toast.LENGTH_SHORT).show()
         }
+//        val adapter = ProductsAdapter(this, DataService.getProducts(products)) { product ->
+//            val intent = Intent(this, ProductDetailActivity::class.java)
+//            intent.putExtra(EXTRA_PRODUCT, product)
+//            startActivity(intent)
+//
+//        }
+
         recyclerViewProducts.adapter = adapter
 
         var spanCount = 2
         val orientation = resources.configuration.orientation
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE){
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
             spanCount = 3
         }
 
         val screenSize = resources.configuration.screenWidthDp
-        if (screenSize > 720){
+        if (screenSize > 720) {
             spanCount = 4
         }
 
-        val layoutManager = GridLayoutManager(this,2)
+        val layoutManager = GridLayoutManager(this, 2)
         recyclerViewProducts.layoutManager = layoutManager
         recyclerViewProducts.setHasFixedSize(true)
     }

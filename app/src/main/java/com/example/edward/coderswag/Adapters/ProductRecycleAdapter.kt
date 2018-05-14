@@ -18,22 +18,22 @@ class ProductRecycleAdapter(val context: Context,
                             val itemClick: (Product) -> Unit):
         RecyclerView.Adapter<ProductRecycleAdapter.ProductViewHolder>() {
 
-    inner class ProductViewHolder(val productView: View,
-                                  val itemClick: (Product) -> Unit):
-            RecyclerView.ViewHolder(productView){
-        val productImage = productView.imageViewProduct
-        val productName = productView.textViewProductTitle
-        val productPrice = productView.textViewProductPrice
+    inner class ProductViewHolder(productView: View?) :
+            RecyclerView.ViewHolder(productView) {
+        // itemView is a property of RecyclerView class (RecyclerView.java)
+        val productImage = itemView?.imageViewProduct
+        val productName = itemView?.textViewProductTitle
+        val productPrice = itemView?.textViewProductPrice
 
         fun setOnItemClickListener(product: Product){
-            productView.setOnClickListener{itemClick(product)}
+           itemView?.setOnClickListener { itemClick(product) }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.product_in_cell, parent, false)
 
-        return ProductViewHolder(view, itemClick)
+        return ProductViewHolder(view)
     }
 
     override fun getItemCount(): Int = products.count()
@@ -43,9 +43,9 @@ class ProductRecycleAdapter(val context: Context,
         val imageId = context.resources.getIdentifier(product.image,
                 "drawable", context.packageName)
 
-        holder.productImage.setImageResource(imageId)
-        holder.productName.text = product.title
-        holder.productPrice.text = product.price
+        holder.productImage?.setImageResource(imageId)
+        holder.productName?.text = product.title
+        holder.productPrice?.text = product.price
 
         holder.setOnItemClickListener(product)
     }
